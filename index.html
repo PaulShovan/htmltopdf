@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+<!-- Main canvg code -->
+<script type="text/javascript" src="html2canvas.js"></script>
+<script type="text/javascript" src="html2canvas.svg.js"></script>
+<script>
+$(document).ready(function(){
+function getPdf() {
+  var doc = new jsPDF('p', 'pt');
+
+  html2canvas(document.getElementById('content')).then(canvas => {
+    var imgData = canvas.toDataURL('image/png');
+    doc.addImage(imgData, 'PNG', 0, 0);
+    doc.save('Spec_Sheet.pdf');
+    document.body.appendChild(canvas);
+  });
+};
+
+
+$( "#content" ).load( "content.html", function() {
+    getPdf()
+});
+});
+</script>
+</head>
+<body>
+  <div id="content"></div>
+  <canvas id="canvas" width=100 height=800></canvas>
+</body>
+</html>
